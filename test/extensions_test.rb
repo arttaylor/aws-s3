@@ -1,5 +1,5 @@
-# coding: utf-8
-require File.dirname(__FILE__) + '/test_helper'
+# encoding: utf-8
+require File.expand_path('../test_helper', __FILE__)
 
 class HashExtensionsTest < Test::Unit::TestCase
   def test_to_query_string
@@ -72,13 +72,13 @@ class StringExtensionsTest < Test::Unit::TestCase
   end
   
   def test_valid_utf8?
-    assert !"318597/620065/GTL_75\24300_A600_A610.zip".valid_utf8?
-    assert "318597/620065/GTL_75£00_A600_A610.zip".valid_utf8?
+    assert(!"318597/620065/GTL_75\24300_A600_A610.zip".valid_utf8?)
+    assert("318597/620065/GTL_75£00_A600_A610.zip".valid_utf8?)
   end
   
   def test_remove_extended
-    assert "318597/620065/GTL_75\24300_A600_A610.zip".remove_extended.valid_utf8?
-    assert "318597/620065/GTL_75£00_A600_A610.zip".remove_extended.valid_utf8?
+    assert("318597/620065/GTL_75\24300_A600_A610.zip".remove_extended.valid_utf8?)
+    assert("318597/620065/GTL_75£00_A600_A610.zip".remove_extended.valid_utf8?)
   end
   
   def test_tap
@@ -182,7 +182,8 @@ class ModuleExtensionsTest < Test::Unit::TestCase
     assert_equal cached_result, @instance.foo
     assert instance_variables_of(@instance).include?('@foo')
     assert_equal cached_result, @instance.send(:instance_variable_get, :@foo)
-    assert_not_equal cached_result, new_cache = @instance.foo(:reload)
+    new_cache = @instance.foo(:reload)
+    assert_not_equal cached_result, new_cache
     assert_equal new_cache, @instance.foo
     assert_equal new_cache, @instance.send(:instance_variable_get, :@foo)
   end
@@ -204,7 +205,8 @@ class ModuleExtensionsTest < Test::Unit::TestCase
     assert_equal cached_result, @instance.quux
     assert instance_variables_of(@instance).include?('@quux')
     assert_equal cached_result, @instance.send(:instance_variable_get, :@quux)
-    assert_not_equal cached_result, new_cache = @instance.quux(:reload)
+    new_cache = @instance.quux(:reload)
+    assert_not_equal cached_result, new_cache
     assert_equal new_cache, @instance.quux
     assert_equal new_cache, @instance.send(:instance_variable_get, :@quux)
   end
