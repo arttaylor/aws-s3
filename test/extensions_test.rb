@@ -182,8 +182,8 @@ class ModuleExtensionsTest < Test::Unit::TestCase
     assert_equal cached_result, @instance.foo
     assert instance_variables_of(@instance).include?('@foo')
     assert_equal cached_result, @instance.send(:instance_variable_get, :@foo)
-    new_cache = @instance.foo(:reload)
-    assert_not_equal cached_result, new_cache
+    sleep 1
+    assert_not_equal cached_result, new_cache = @instance.foo(:reload)
     assert_equal new_cache, @instance.foo
     assert_equal new_cache, @instance.send(:instance_variable_get, :@foo)
   end
@@ -205,8 +205,8 @@ class ModuleExtensionsTest < Test::Unit::TestCase
     assert_equal cached_result, @instance.quux
     assert instance_variables_of(@instance).include?('@quux')
     assert_equal cached_result, @instance.send(:instance_variable_get, :@quux)
-    new_cache = @instance.quux(:reload)
-    assert_not_equal cached_result, new_cache
+    sleep 1
+    assert_not_equal cached_result, new_cache= @instance.quux(:reload)
     assert_equal new_cache, @instance.quux
     assert_equal new_cache, @instance.send(:instance_variable_get, :@quux)
   end
